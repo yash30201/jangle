@@ -1,0 +1,14 @@
+.navigationBar{
+    max-width: 80px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0 10px;
+    padding-top: 30px;
+}
+
+.navigationBar img{
+    display: block;
+    max-width: 100%;
+    cursor: pointer;
+}
