@@ -2,9 +2,14 @@ import React from 'react'
 import './chatList.css'
 import ChatListItem from '../chatListItem/chatListItem';
 
-function ChatList(){
+function ChatList({
+    selectConversation = (value) => {}
+}){
     let exampleList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
+    const selectedChat = (index) => {
+        selectConversation('Conversation with index : ' + index.toString());
+    };
     return(
         <div className="chatList">
             <div className="chatListHeading">
@@ -31,6 +36,7 @@ function ChatList(){
                                 <ChatListItem 
                                     animationDelay={index+1}
                                     key={index.toString()}
+                                    selectedChat = {selectedChat}
                                 />
                             ); 
                         }
