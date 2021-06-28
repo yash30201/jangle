@@ -1,10 +1,11 @@
 import React from 'react'
 import './chatListItem.css'
+import Avatar from '../avatar/avatar'
 
 function ChatListItem({
     firstName = "Jhon",
     lastName = "Doe",
-    avatarUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    avatarUrl,
     animationDelay = 0,
     selectedChat = (value) => {}
 }) {
@@ -29,11 +30,7 @@ function ChatListItem({
             style={{animationDelay : animationDelayValue}}
             onClick={selectChat}
         >
-            <div className="avatar">
-                <div className="avatarImage">
-                    <img src={avatarUrl} alt="#" />
-                </div>
-            </div>
+            <Avatar/>
             <div className="userMeta">
                 <p>{firstName} {lastName}</p>
             </div>
@@ -42,3 +39,5 @@ function ChatListItem({
 }
 
 export default ChatListItem;
+
+

@@ -1,0 +1,36 @@
+.message{
+    display : flex;
+    margin-bottom: 15px;
+    transition: all 0.3 cubic-bezier(0.88, 0.19, 0.37, 1.11);
+    transform: scale(0);
+    animation-name: showIn;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0.88, 0.19, 0.37, 1.11);
+    animation-fill-mode: both;
+    animation-delay: 0.1s;
+}
+.self{
+    justify-content: flex-end;
+    transform-origin: right;
+}
+.other{
+    justify-content: flex-start;
+    transform-origin: left;
+}
+
+.messageText{
+    padding :10px 15px;
+    max-width: 50%;
+}
+.self>.messageText{
+    background-color: khaki;
+    border-radius: 20px 0px 20px 20px;
+    margin-right: 5px;
+}
+.other>.messageText{
+    background-color: pink;
+    border-radius: 0px 20px 20px 20px;
+    margin-left: 5px;
+}

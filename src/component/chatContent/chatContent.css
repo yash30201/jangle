@@ -1,3 +1,81 @@
 .chatContent{
     /* background-color: white; */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    /* max-width: 100%; */
+}
+
+.chatContentHeader{
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(187, 105, 201);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.otherUserInfo{
+    display: flex;
+    align-items: center;
+}
+
+.otherUserInfo>p{
+    margin: 0;
+    font-weight: 600;
+}
+
+.settingButton{
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #8E24AA;
+}
+
+.chatContentBody{
+    background-color: turquoise;
+    overflow: auto;
+    flex-grow: 1;
+}
+
+.messages:first-child{
+    margin-top: 10px;
+}
+
+.chatContentFooter{
+    margin-top: 10px;
+    display: flex;
+    background-color: lightgreen;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 5px 5px 15px;
+    border-radius: 50px;
+}
+
+.chatContentFooter>button{
+    width: 36px;
+    height: 36px;
+    background-color: blueviolet;
+    border : none;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: greenyellow;
+    padding: 0;
+    border-radius: 50px;
+    line-height: 36px;
+    transition: all cubic-bezier(0.895, 0.03, 0.685, 0.22);
+}
+
+.chatContentFooter>button:hover{
+    transform: scale(1.1);
+}
+
+.chatContentFooter>input{
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
