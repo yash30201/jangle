@@ -1,13 +1,21 @@
 import './App.css';
-import ChatBody from './component/chatBody/chatBody';
-import  NavigationBar from "./component/navigationBar/navigationBar";
+import Dashboard from './component/dashboard/dashboard';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
+function IsAutherised({ children }) {
+  // return <div>Loading</div>;
+  return children;
+}
 
 function App() {
   return (
-    <div className="mainDiv">
-      <NavigationBar/>
-      <ChatBody/>
-    </div>
+    <BrowserRouter>
+      <IsAutherised>
+        <Switch>
+          <Route exact path='/' component={Dashboard}/>
+        </Switch>
+      </IsAutherised>
+    </BrowserRouter>
   );
 }
 
