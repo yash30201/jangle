@@ -1,6 +1,6 @@
 import React from 'react'
 import './chatList.css'
-import ChatListItem from '../chatListItem/chatListItem';
+import ChatListItem from './chatListItem/chatListItem';
 
 function ChatList({
     selectConversation = (value) => {}

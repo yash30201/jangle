@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import './chatContent.css'
-import Avatar from '../avatar/avatar'
+import Avatar from '../chatList/avatar/avatar'
 import Message from './message/message';
 
 
