@@ -1,6 +1,6 @@
 import React from 'react'
 import './chatListItem.css'
-import Avatar from '../avatar/avatar'
+// import Avatar from '../avatar/avatar'
 
 function ChatListItem({
     title = "Jhon Doe",

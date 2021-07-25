@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import './chatContent.css'
-import Avatar from '../chatList/avatar/avatar'
+// import Avatar from '../chatList/avatar/avatar'
 import Message from './message/message';
 
 
@@ -124,7 +124,7 @@ function ChatContent({
             <div className="chatContentHeader">
                 <div className="blocks">
                     <div className="otherUserInfo">
-                        <Avatar />
+                        {/* <Avatar /> */}
                         <p>{`${firstName} ${lastName}`}</p>
                     </div>
                 </div>

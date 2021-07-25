@@ -10,9 +10,6 @@
     align-items: center;
 }
 
-.searchBar{
-    padding: 10px 0;
-}
 
 .searchWrap {
     background-color: rgba(110, 182, 255, 0.2);
@@ -79,4 +76,12 @@
     overflow: auto;
     margin-top: 30px;
     max-height: calc(100vh - calc(100vh / 2));
+}
+
+.popup-content{
+    width: 60%;
+    max-width: 700px;
+    height: 70%;
+    max-height: 70vh;
+    display: block;
 }

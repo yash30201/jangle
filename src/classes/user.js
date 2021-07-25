@@ -1,13 +1,11 @@
-class User{
-    constructor(user) {
-        this.createdAt = user.createdAt;
-        this._id = user._id; 
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
-        this.phoneNumber = user.phoneNumber;
-        this.updatedAt = user.updatedAt;
-        this.userType = user.userType;
-    }
+function UserProcessor(user){
+    const data = {
+        firstName : user.firstName,
+        lastName : user.lastName,
+        userId : user._id,
+        phoneNumber : user.phoneNumber
+    };
+    return data;
 }
 
-export default User;
+export default UserProcessor;
