@@ -3,9 +3,8 @@ import './chatListItem.css'
 import Avatar from '../avatar/avatar'
 
 function ChatListItem({
-    firstName = "Jhon",
-    lastName = "Doe",
-    avatarUrl,
+    title = "Jhon Doe",
+    avatarUrl= '',
     animationDelay = 0,
     selectedChat = (value) => {}
 }) {
@@ -30,9 +29,9 @@ function ChatListItem({
             style={{animationDelay : animationDelayValue}}
             onClick={selectChat}
         >
-            <Avatar/>
+            {/* <Avatar avatarUrl={avatarUrl} firstName = {title[0]}/> */}
             <div className="userMeta">
-                <p>{firstName} {lastName}</p>
+                <p>{title}</p>
             </div>
         </div>
     );

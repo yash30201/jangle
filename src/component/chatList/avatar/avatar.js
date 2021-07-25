@@ -2,13 +2,14 @@ import React from 'react';
 import './avatar.css'
 
 function Avatar({
-    avatarUrl = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'
+    avatarUrl = '',
+    firstName = 'Jhon'
 }) {
     return (
         <div className="avatar">
-            <div className="avatarImage">
-                <img src={avatarUrl} alt="#" />
-            </div>
+                {
+                    (avatarUrl.length === 0) ? <p>{firstName[0]}</p> : <img src={avatarUrl} alt={firstName[0]} />
+                }
         </div>
     );
 }

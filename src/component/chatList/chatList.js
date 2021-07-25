@@ -1,16 +1,32 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './chatList.css'
 import ChatListItem from './chatListItem/chatListItem';
+import { useSelector } from 'react-redux';
+import roomRequests from '../../api/roomRequests'
+import RoomProcessor from '../../classes/room';
 
 function ChatList({
-    selectConversation = (value) => {}
-}){
-    let exampleList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+    selectConversation = (value) => { }
+}) {
+    const [conversations, setConversations] = useState([]);
+    const userId = useSelector(state => state.user._id);
+    useEffect(() => {
+        async function getRoom() {
+            const response = await roomRequests.getAllMyRooms(userId);
+            let rooms = [];
+            for (let i = 0; i < response.rooms.length; i++) {
+                let room = await RoomProcessor(response.rooms[i]);
+                rooms.push(room);
+            }
+            setConversations(rooms);
+        }
+        getRoom();
+    }, [userId]);
 
     const selectedChat = (index) => {
         selectConversation('Conversation with index : ' + index.toString());
     };
-    return(
+    return (
         <div className="chatList">
             <div className="chatListHeading">
                 <h2>Chats</h2>
@@ -21,7 +37,7 @@ function ChatList({
             </button>
             <div className="searchBar">
                 <div className="searchWrap">
-                    <input type="text" placeholder="Search user" required/>
+                    <input type="text" placeholder="Search user" required />
                     <button className="searchButton">
                         <i className="fa fa-search"></i>
                     </button>
@@ -30,15 +46,16 @@ function ChatList({
 
             <div className="chatListItems">
                 {
-                    exampleList.map(
-                        (item, index) => {
-                            return(
-                                <ChatListItem 
-                                    animationDelay={index+1}
-                                    key={index.toString()}
-                                    selectedChat = {selectedChat}
+                    conversations.map(
+                        (conversation, index) => {
+                            return (
+                                <ChatListItem
+                                    title={conversation.roomName}
+                                    animationDelay={index + 1}
+                                    key={conversation.roomId}
+                                    selectedChat={selectedChat}
                                 />
-                            ); 
+                            );
                         }
                     )
                 }
