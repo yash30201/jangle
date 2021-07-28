@@ -1,113 +1,53 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import './chatContent.css'
 // import Avatar from '../chatList/avatar/avatar'
+import roomRequests from '../../api/roomRequests';
 import Message from './message/message';
+import DetailedRoomProcessor from '../../classes/detailedRoom';
+import MessageProcessor from '../../classes/message';
+import { useSelector } from 'react-redux';
 
+function LoadingChat() {
+    return (
+        <div className="loading-chat">
+            <h1>Select a chat...</h1>
+        </div>
+    );
+}
 
-
-function ChatContent({
-    firstName = 'Jhon',
-    lastName = 'Doe'
-}) {
+function RealChat({room}){
     const messageEndRef = useRef(null);
-    const [chatMessages, setChatMessages] = useState([
-        {
-            key: 1,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 2,
-            message: "Hi nibba!",
-            other: false
-        },
-        {
-            key: 3,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 4,
-            message: "Hi nibba!",
-            other: false
-        },
-        {
-            key: 5,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 6,
-            message: "Hi nibba!",
-            other: false
-        },
-        {
-            key: 7,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 8,
-            message: "Hi nibba!",
-            other: false
-        },
-        {
-            key: 9,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 10,
-            message: "Hi nibba!",
-            other: false
-        },
-        {
-            key: 11,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 12,
-            message: "Hi nibba!",
-            other: false
-        },
-        {
-            key: 13,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 14,
-            message: "Hi nibba!",
-            other: false
-        },
-        {
-            key: 15,
-            message: "Yo nibba!",
-            other: true
-        },
-        {
-            key: 16,
-            message: "Hi nibba!",
-            other: false
-        },
-    ]);
+    const userId = useSelector(state => state.user._id);
+    const [chatMessages, setChatMessages] = useState([]);
     const [inputText, setInputText] = useState("");
 
     useEffect(() => {
-        messageEndRef.current.scrollIntoView({ behaviour: 'smooth' });
-    }, [chatMessages])
+        async function getMessages(roomId, userId){
+            const response = await roomRequests.getMessagesByRoomId(roomId);
+            let tempMessages = [];
+            for(let i = 0 ; i < response.messages.length ; i++){
+                tempMessages.push(MessageProcessor(response.messages[i], userId));
+            }
+            setChatMessages(tempMessages);
+        }
+        getMessages(room.roomId, userId);
+    }, [room, userId]);
 
-    const onSendMessage = useCallback(() => {
-        if (inputText.length) {
-            setChatMessages(state => [...state, {
-                key: state.length + 1,
-                other: false,
-                message: inputText
-            }]);
+    useEffect(() => {
+        messageEndRef.current.scrollIntoView({ behaviour: 'smooth' });
+    }, [chatMessages]);
+
+    const onSendMessage = useCallback(async () => {
+        if (inputText.length > 0) {
+            const response = await roomRequests.postMessage(inputText, room.roomId);
+            const newMessage = MessageProcessor(response.message, userId);
+            setChatMessages(state => [...state, newMessage]);
             setInputText('');
         }
-    });
+    }, [inputText, room, userId]);
+
+
+
     useEffect(() => {
         function handleKeyupEvent(event) {
             if (event.keyCode === 13) onSendMessage();
@@ -125,7 +65,7 @@ function ChatContent({
                 <div className="blocks">
                     <div className="otherUserInfo">
                         {/* <Avatar /> */}
-                        <p>{`${firstName} ${lastName}`}</p>
+                        <p>{room.roomName}</p>
                     </div>
                 </div>
 
@@ -144,8 +84,8 @@ function ChatContent({
                         chatMessages.map((message, index) => {
                             return <Message
                                 other={message.other}
-                                key={message.key}
-                                text={message.message}
+                                key={message.messageId}
+                                text={message.text}
                             />;
                         })
                     }
@@ -167,6 +107,28 @@ function ChatContent({
         </div>
     );
 }
+
+function ChatContent({roomId}) {
+
+    const [room, setRoom] = useState(null);
+
+    useEffect(() => {
+        async function fetchUser(roomId) {
+            if(roomId){
+                const response = await roomRequests.getRoomByRoomId(roomId);
+                if (response.error) return;
+                const data = DetailedRoomProcessor(response.room);
+                setRoom(data);
+            }
+        }
+        fetchUser(roomId);
+    }, [roomId])
+
+
+    if (!room) return <LoadingChat />;
+    else return <RealChat room={room} />
+}
+
 
 export default ChatContent;
 

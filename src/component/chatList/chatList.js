@@ -19,9 +19,9 @@ function ChatList({
     const dispatch = useDispatch();
 
 
-    const myCallBackForGettingChoosenUser = (userId) => {
-        console.log(userId);
+    const myCallBackForGettingChoosenUser = (roomId) => {
         setOpen(false);
+        selectConversation(roomId);
     }
 
     useEffect(() => {
@@ -47,8 +47,9 @@ function ChatList({
         getRoom();
     }, [userId, dispatch]);
 
-    const selectedChat = (index) => {
-        selectConversation('Conversation with index : ' + index.toString());
+    const selectedChatIndex = (index) => {
+        const roomId = conversations[index].roomId;
+        myCallBackForGettingChoosenUser(roomId);
     };
     return (
         <div className="chatList">
@@ -79,8 +80,9 @@ function ChatList({
                                 <ChatListItem
                                     title={conversation.roomName}
                                     animationDelay={index + 1}
+                                    roomId={conversation.roomId}
                                     key={conversation.roomId}
-                                    selectedChat={selectedChat}
+                                    selectedChatIndex={selectedChatIndex}
                                 />
                             );
                         }

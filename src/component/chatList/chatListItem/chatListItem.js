@@ -6,7 +6,7 @@ function ChatListItem({
     title = "Jhon Doe",
     avatarUrl= '',
     animationDelay = 0,
-    selectedChat = (value) => {}
+    selectedChatIndex = (value) => {}
 }) {
 
     
@@ -18,7 +18,7 @@ function ChatListItem({
             if(event.currentTarget.parentNode.children[i] === event.currentTarget) ind = i;
         }
         event.currentTarget.classList.add('active');
-        selectedChat(ind);
+        selectedChatIndex(ind);
     }
     const animationDelayValue = (animationDelay*50).toString()+'ms';
 
