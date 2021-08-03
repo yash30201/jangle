@@ -1,8 +1,6 @@
 import requests from '../api/userRequests'
-import {useSelector} from 'react-redux';
 
-async function RoomProcessor(room) {
-    const userId = useSelector(state => state.user._id);
+async function RoomProcessor(room, userId) {
     let chatTitle = '';
     for (let i = 0; i < room.userIds.length; i++) {
         if(room.userIds[i] !== userId){

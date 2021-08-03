@@ -1,11 +1,12 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react'
+import React, { useRef, useState, useEffect, useCallback, useContext } from 'react'
 import './chatContent.css'
 // import Avatar from '../chatList/avatar/avatar'
 import roomRequests from '../../api/roomRequests';
 import Message from './message/message';
-import DetailedRoomProcessor from '../../classes/detailedRoom';
-import MessageProcessor from '../../classes/message';
+import DetailedRoomProcessor from '../../dataProcessors/detailedRoom';
+import MessageProcessor from '../../dataProcessors/message';
 import { useSelector } from 'react-redux';
+import {socketContext} from '../../context/socket'
 
 function LoadingChat() {
     return (
@@ -18,6 +19,7 @@ function LoadingChat() {
 function RealChat({room}){
     const messageEndRef = useRef(null);
     const userId = useSelector(state => state.user._id);
+    const socket = useContext(socketContext);
     const [chatMessages, setChatMessages] = useState([]);
     const [inputText, setInputText] = useState("");
 
@@ -40,12 +42,12 @@ function RealChat({room}){
     const onSendMessage = useCallback(async () => {
         if (inputText.length > 0) {
             const response = await roomRequests.postMessage(inputText, room.roomId);
+            socket.emit('send message', room.roomId, response.message);
             const newMessage = MessageProcessor(response.message, userId);
             setChatMessages(state => [...state, newMessage]);
             setInputText('');
         }
-    }, [inputText, room, userId]);
-
+    }, [inputText, room, userId, socket]);
 
 
     useEffect(() => {
@@ -58,7 +60,15 @@ function RealChat({room}){
         }
     }, [onSendMessage]);
 
-
+    useEffect(() => {
+        socket.on('new message', (data) => {
+            if(data.roomId === room.roomId){
+                const newMessage = MessageProcessor(data, userId);
+                setChatMessages(state => [...state, newMessage]);
+            }
+        });
+    }, [socket, userId, room])
+    
     return (
         <div className="chatContent">
             <div className="chatContentHeader">
@@ -111,18 +121,18 @@ function RealChat({room}){
 function ChatContent({roomId}) {
 
     const [room, setRoom] = useState(null);
-
+    const userId = useSelector(state => state.user._id);
     useEffect(() => {
         async function fetchUser(roomId) {
             if(roomId){
                 const response = await roomRequests.getRoomByRoomId(roomId);
                 if (response.error) return;
-                const data = DetailedRoomProcessor(response.room);
+                const data = DetailedRoomProcessor(response.room, userId);
                 setRoom(data);
             }
         }
         fetchUser(roomId);
-    }, [roomId])
+    }, [roomId, userId]);
 
 
     if (!room) return <LoadingChat />;

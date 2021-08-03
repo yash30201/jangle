@@ -1,9 +1,7 @@
-import {useSelector} from 'react-redux';
 
-function DetailedRoomProcessor(room) {
+function DetailedRoomProcessor(room, userId) {
     let roomMembers = [];
     let chatTitle = '';
-    const userId = useSelector(state => state.user._id);
     for (let i = 0; i < room.userIds.length; i++) {
         roomMembers.push({
             userId: room.userIds[i][0]._id,
