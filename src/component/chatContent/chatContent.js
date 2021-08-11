@@ -61,12 +61,16 @@ function RealChat({ room }) {
     }, [onSendMessage]);
 
     useEffect(() => {
-        socket.on('new message', (data) => {
+        const onNewMessage = (data) => {
             if (data.roomId === room.roomId) {
                 const newMessage = MessageProcessor(data, userId);
                 setChatMessages(state => [...state, newMessage]);
             }
-        });
+        };
+        socket.on('new message', onNewMessage);
+        return () => {
+            socket.off('new message', onNewMessage);
+        }
     }, [socket, userId, room])
 
 

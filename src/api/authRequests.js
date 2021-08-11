@@ -17,7 +17,7 @@ const signUpUser = async (data) => {
         const response = await axios.post(constant.apiUrl + "signup", data);
         return {userId : response.data.userId};
     } catch (err) {
-        console.log('Error while signin in');
+        console.log('Error while signin up');
         return { error: err.response.data };
     }
 }

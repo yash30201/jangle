@@ -1,6 +1,5 @@
 import React from 'react'
 import './navigationBar.css'
-import avatar from '../../assets/images/roboicon.jpg';
 import { useContext } from 'react';
 import {socketContext} from '../../context/socket'
 import {useHistory} from 'react-router-dom'
@@ -17,11 +16,11 @@ function NavigationBar() {
     return (
         <div className="navigationBar">
             <div className="navigationBlocks">
-                <img src={avatar} alt="" />
+                <img src="https://img.icons8.com/color/50/000000/chat.png" alt="logo"/>
             </div>
 
             <div className="navigationBlocks">
-                <button onClick = {handleLogout}><i class="fa fa-power-off"></i></button>
+                <button onClick = {handleLogout}><i className="fa fa-power-off"></i></button>
             </div>
         </div>
     );

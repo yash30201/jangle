@@ -35,6 +35,7 @@ function ChatList({
             const response = await roomRequests.getAllMyRooms(userId);
             let rooms = [];
             for (let i = 0; i < response.rooms.length; i++) {
+                // console.log(response.rooms[i]);
                 let room = await RoomProcessor(response.rooms[i], userId);
                 rooms.push(room);
             }
@@ -44,12 +45,12 @@ function ChatList({
         [userId],
     )
     useEffect(() => {
-        socket.on('new conversation', async () => {
-            await getRooms();
-        });
-        socket.on('new message', async () => {
-            await getRooms();
-        });
+        socket.on('new conversation', getRooms);
+        socket.on('new message',getRooms);
+        return () => {
+            socket.off('new conversation', getRooms);
+            socket.off('new conversation', getRooms);
+        }
     }, [socket, getRooms])
 
 
@@ -67,8 +68,8 @@ function ChatList({
             dispatch({ type: 'UPDATE_USERS', users });
             setIsLoading(false);
         }
-        getRoom();
-    }, [userId, dispatch, getRooms]);
+        if(isLoading) getRoom();
+    }, [userId, dispatch, getRooms, isLoading]);
 
     const selectedChatIndex = (index) => {
         const roomId = conversations[index].roomId;

@@ -16,7 +16,6 @@ function SearchPopup({ myCallBack = () => { } }) {
         const response = await roomRequests.initiateRoom(userIds);
         const roomId = response.roomId;
         socket.emit('join room', roomId, myUserId, userId);
-        socket.emit('new conversation', userIds);
         myCallBack(roomId, response.isNewRoom);
     }
 
