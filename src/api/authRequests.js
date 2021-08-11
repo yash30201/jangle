@@ -12,5 +12,15 @@ const signInUser = async (data) => {
     }
 }
 
-const requests = { signInUser };
+const signUpUser = async (data) => {
+    try {
+        const response = await axios.post(constant.apiUrl + "signup", data);
+        return {userId : response.data.userId};
+    } catch (err) {
+        console.log('Error while signin in');
+        return { error: err.response.data };
+    }
+}
+
+const requests = { signInUser,signUpUser };
 export default requests;

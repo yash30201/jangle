@@ -2,11 +2,12 @@
     width: 80%;
     max-width: 700px;
     background-color: lightcoral;
-    display: flex;
+    display: block;
     justify-content: center;
     border-radius: 10px;
     padding: 20px;
 }
+
 
 input[type=text],input[type=password], select {
     width: 100%;
