@@ -5,6 +5,7 @@ import './dashboard.css'
 import { useDispatch, useSelector } from 'react-redux';
 import requests from '../../api/userRequests'
 import {socketContext} from '../../context/socket'
+import Spinner from '../spinner';
 
 function Dashboard({ history }) {
     const currentUser = useSelector(state => state.user);
@@ -48,9 +49,7 @@ function Dashboard({ history }) {
     }
     else {
         return (
-            <div className="dashboard">
-                <h1>Loading....</h1>
-            </div>
+            <Spinner/>
         );
     }
 }

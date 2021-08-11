@@ -11,12 +11,24 @@ function SignIn({ history }) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
+    const passwordQualifications = [
+        "For password", "length >= 8", "Should have at least 1 lowercase english alphabet", "Should have at least 1 uppercase english alphabet", "Should have at least 1 special character", "Should have at least 1 digit"
+    ];
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/.test(password) === false) {
+            setModalContent(passwordQualifications);
+            setPopShow(true);
+            setPassword('');
+            return;
+        }
         setIsProcessing(true);
         var data = { phoneNumber, password };
         setPassword('');
         setPhoneNumber('');
+
+
         const response = await requests.signInUser(data);
         if (!response.error) {
             localStorage.setItem('authToken', response.authToken);
@@ -24,9 +36,9 @@ function SignIn({ history }) {
             localStorage.setItem('isLoggedIn', 'true');
             history.push('/');
         }
-        else{
+        else {
             var temp = [];
-            if(response.error.error[0].msg != null){
+            if (response.error.error[0].msg != null) {
                 for (let i = 0; i < response.error.error.length; i++) {
                     temp.push(response.error.error[i].msg + ' : ' + response.error.error[i].param);
                 }
@@ -43,6 +55,7 @@ function SignIn({ history }) {
                 <label htmlFor="phone-number">
                     Phone Number :
                     <input
+                        className="loginInput"
                         type="text" id="phone-number" value={phoneNumber}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                     />
@@ -51,14 +64,15 @@ function SignIn({ history }) {
                 <label htmlFor="password">
                     Password :
                     <input
+                        className="loginInput"
                         type="password" id="password" value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </label>
 
-                <input type="submit" value="Sign in" />
-
-                <span>Don't have an account?</span><a href="../sign-up">Sign-up</a>
+                <input className="loginInput" type="submit" value="Sign in" />
+                <div className="inputspacer"></div>
+                <span >Don't have an account?</span><a href="../sign-up">Sign-up</a>
             </form>
             <Spinner isVisible={isProcessing} />
             <Popup open={popShow} closeOnDocumentClick onClose={() => setPopShow(false)} position='left top'>

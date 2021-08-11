@@ -8,7 +8,7 @@ body {
 }
 
 #root {
-  background-color: rgba(224, 252, 255, 1);
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,9 @@ body {
 }
 
 .modal {
-  background-color: lightblue;
+  background-color: #ecf7fc;
+  border: #039BE5 dashed 3px;
+  box-shadow: 0 0 20px 3px rgb(194, 192, 192);
   padding: 20px;
   border-radius: 10px;
   display: grid;

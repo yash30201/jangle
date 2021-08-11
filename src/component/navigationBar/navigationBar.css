@@ -11,5 +11,16 @@
 .navigationBar img{
     display: block;
     max-width: 100%;
+}
+
+.navigationBlocks>button{
     cursor: pointer;
+    margin-top: 20px;
+    padding: 6px 10px;
+    font-size: 1.5rem;
+    border-radius: 999em;
+    color: #03A9F4;
+    background-color: white;
+    border : #03A9F4 solid 2px;
+    box-shadow: 0 0 10px 2px rgb(194, 194, 194);
 }

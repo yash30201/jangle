@@ -6,6 +6,19 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    animation-name: search-popupAnimation;
+    animation-duration: 200ms;
+}
+
+@keyframes search-popupAnimation {
+    from{
+        transform: scale(0.6);
+        opacity: 0.6;
+    }
+    to{
+        opacity: 1;
+        transform: scale(1.0);
+    }
 }
 
 .searchWrap {

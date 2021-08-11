@@ -14,8 +14,18 @@ function SignUp({ history }) {
     const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
 
+    const passwordQualifications = [
+        "For password", "length >= 8", "Should have at least 1 lowercase english alphabet", "Should have at least 1 uppercase english alphabet", "Should have at least 1 special character", "Should have at least 1 digit"
+    ];
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/.test(password) === false) {
+            setModalContent(passwordQualifications);
+            setPopShow(true);
+            setPassword('');
+            return;
+        }
         setIsProcessing(true);
         var data = { firstName, lastName, phoneNumber, password };
         setFirstName('');
@@ -46,6 +56,7 @@ function SignUp({ history }) {
                 <label htmlFor="first-name">
                     First name :
                     <input
+                        className="signInInput"
                         type="text" id="first-name" value={firstName}
                         onChange={(event) => setFirstName(event.target.value)}
                     />
@@ -54,6 +65,7 @@ function SignUp({ history }) {
                 <label htmlFor="last-name">
                     Last name :
                     <input
+                        className="signInInput"
                         type="text" id="last-name" value={lastName}
                         onChange={(event) => setLastName(event.target.value)}
                     />
@@ -62,6 +74,7 @@ function SignUp({ history }) {
                 <label htmlFor="phone-number">
                     Phone Number :
                     <input
+                        className="signInInput"
                         type="text" id="phone-number" value={phoneNumber}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                     />
@@ -70,14 +83,15 @@ function SignUp({ history }) {
                 <label htmlFor="password">
                     Password :
                     <input
+                        className="signInInput"
                         type="password" id="password" value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </label>
 
-                <input type="submit" value="Sign up" />
-
-                <span>Already have an account ?</span><a href="../sign-in">Sign-in</a>
+                <input className="signInInput" type="submit" value="Sign up" />
+                <div className="inputspacer"></div>
+                <span>Already have an account ? </span><a href="../sign-in">Sign-in</a>
             </form>
             <Spinner isVisible={isProcessing} />
             <Popup open={popShow} closeOnDocumentClick onClose={() => setPopShow(false)} position='left top'>

@@ -10,10 +10,12 @@ import Popup from 'reactjs-popup';
 import SearchPopup from './searchPopup/searchPopup';
 import { useDispatch } from 'react-redux';
 import { socketContext } from '../../context/socket'
+import Spinner from '../spinner';
 
 function ChatList({
     selectConversation = (value) => { }
 }) {
+    const [isLoading, setIsLoading] = useState(true);
     const [conversations, setConversations] = useState([]);
     const userId = useSelector(state => state.user._id);
     const [open, setOpen] = useState(false);
@@ -37,6 +39,7 @@ function ChatList({
                 rooms.push(room);
             }
             setConversations(rooms);
+            
         },
         [userId],
     )
@@ -62,6 +65,7 @@ function ChatList({
                 users.push(curr_user);
             }
             dispatch({ type: 'UPDATE_USERS', users });
+            setIsLoading(false);
         }
         getRoom();
     }, [userId, dispatch, getRooms]);
@@ -91,23 +95,25 @@ function ChatList({
                 }
             </Popup>
 
-            <div className="chatListItems">
-                {
-                    conversations.map(
-                        (conversation, index) => {
-                            return (
-                                <ChatListItem
-                                    title={conversation.roomName}
-                                    animationDelay={index + 1}
-                                    roomId={conversation.roomId}
-                                    key={conversation.roomId}
-                                    selectedChatIndex={selectedChatIndex}
-                                />
-                            );
-                        }
-                    )
-                }
-            </div>
+            {
+                isLoading ? <Spinner /> : (<div className="chatListItems">
+                    {
+                        conversations.map(
+                            (conversation, index) => {
+                                return (
+                                    <ChatListItem
+                                        title={conversation.roomName}
+                                        animationDelay={index + 1}
+                                        roomId={conversation.roomId}
+                                        key={conversation.roomId}
+                                        selectedChatIndex={selectedChatIndex}
+                                    />
+                                );
+                            }
+                        )
+                    }
+                </div>)
+            }
         </div>
     );
 }

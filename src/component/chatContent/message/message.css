@@ -14,10 +14,12 @@
 .self{
     justify-content: flex-end;
     transform-origin: right;
+    margin-right: 5px;
 }
 .other{
     justify-content: flex-start;
     transform-origin: left;
+    margin-left: 5px;
 }
 
 .messageText{
@@ -25,12 +27,12 @@
     max-width: 50%;
 }
 .self>.messageText{
-    background-color: khaki;
+    background-color: #a6ddf7;
     border-radius: 20px 0px 20px 20px;
     margin-right: 5px;
 }
 .other>.messageText{
-    background-color: pink;
+    background-color: #caf4fa;
     border-radius: 0px 20px 20px 20px;
     margin-left: 5px;
 }

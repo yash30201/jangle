@@ -4,12 +4,26 @@
     display: flex;
     flex-direction: column;
     padding: 20px 20px;
+    animation-name: chatContentAnimation;
+    animation-duration: 300ms;
+    transition: cubic-bezier(0.895, 0.03, 0.685, 0.22);
     /* max-width: 100%; */
+}
+
+@keyframes chatContentAnimation {
+    from{
+        transform: scale(0.6);
+        opacity: 0.6;
+    }
+    to{
+        opacity: 1;
+        transform: scale(1.0);
+    }
 }
 
 .chatContentHeader{
     padding-bottom: 15px;
-    border-bottom: 1px solid rgb(187, 105, 201);
+    /* border-bottom: 1px solid rgb(187, 105, 201); */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,18 +39,19 @@
     font-weight: 600;
 }
 
-.settingButton{
+/* .settingButton{
     background-color: transparent;
     border: none;
     font-size: 20px;
     cursor: pointer;
     color: #8E24AA;
-}
+} */
 
 .chatContentBody{
-    background-color: turquoise;
+    background-color: rgb(252, 252, 252);
     overflow: auto;
     flex-grow: 1;
+    border-radius: 12px;
 }
 
 .messages:first-child{
@@ -44,27 +59,48 @@
 }
 
 .chatContentFooter{
-    margin-top: 10px;
     display: flex;
-    background-color: lightgreen;
     align-items: center;
-    justify-content: space-between;
-    padding: 5px 5px 5px 15px;
-    border-radius: 50px;
+    padding-top: 15px;
 }
 
+
+/* .chatContentFooter>input{
+    border-radius: 50px;
+    position: relative;
+    background: linear-gradient(21deg, #10abff, #1beabd);
+    padding: 3px;
+    display: inline-block;
+    border-radius: 9999em;
+
+} */
+
+.messageTextField{
+    position: relative;
+    flex-grow: 1;
+    border : #0288D1 solid 2px;
+    /* background: linear-gradient(21deg, #10abff, #1beabd); */
+    padding: 10px;
+    font-size: 1rem;
+    display: inline-block;
+    border-radius: 9999em;
+}
+
+.spacer{
+    width: 10px;
+}
 .chatContentFooter>button{
-    width: 36px;
-    height: 36px;
-    background-color: blueviolet;
+    width: 44px;
+    height: 44px;
+    background-color: #03A9F4;
     border : none;
     box-shadow: none;
     outline: none;
     cursor: pointer;
     font-size: 16px;
-    color: greenyellow;
+    color: white;
     padding: 0;
-    border-radius: 50px;
+    border-radius: 150px;
     line-height: 36px;
     transition: all cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
@@ -73,12 +109,6 @@
     transform: scale(1.1);
 }
 
-.chatContentFooter>input{
-    flex-grow: 1;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
 
 .loading-chat{
     height: 100%;
