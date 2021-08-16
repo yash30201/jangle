@@ -7,11 +7,10 @@ To view, visit the website deployed at [heroku](https://jangle-chat.herokuapp.co
 
 ## Table of contents
 
-+ [Built with]()
-+ [Installation]()
-+ [Screen-shots]()
-+ [To do's]()
-+ [Future updates]()
++ [Built with](#built-with)
++ [Installation](#installation)
++ [Screen-shots](#screenshots)
++ [To do's](#todos)
 
 ## Built with
 
