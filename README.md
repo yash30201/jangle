@@ -1,3 +1,6 @@
+![chatIcon](https://user-images.githubusercontent.com/54198301/129656055-4bfa5e69-0747-4526-88c6-ed3ebcac6551.png)
+<br>
+    
 # Jangle Web
 
 Front end web client for Jangle cross-platform chat application built with React and socket.io.
